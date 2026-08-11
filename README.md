@@ -1,13 +1,17 @@
 # Laplacian-GS: Laplacian Frequency Hierarchies for Efficient 3D Gaussian Splatting Training
 
-[Project Page](https://SorenZhang574.github.io/Laplacian-GS/)
+<div align="center">
+
+[🌐 Project Page](https://SorenZhang574.github.io/Laplacian-GS/)
+
+</div>
 
 Laplacian-GS is a plug-and-play acceleration scheme for 3D Gaussian Splatting training.
 It combines Laplacian image decomposition with coarse-to-fine, frequency-staged optimization.
 
 ![Laplacian-GS teaser](docs/assets/teaser_Laplacian-GS.jpg)
 
-## 1. About Laplacian-GS
+## 🧩 About Laplacian-GS
 
 A key bottleneck in 3DGS training is the continual growth of Gaussian primitives, which increases optimization cost and slows convergence, especially at high resolutions.
 Laplacian-GS fits lower-frequency structure first, archives the corresponding Gaussian field, and then trains later fields on higher-frequency residuals without carrying the full primitive burden.
@@ -17,7 +21,7 @@ This design is orthogonal to existing 3DGS acceleration methods and can be combi
 
 This release includes the Mip-NeRF 360 1K setting reproduction scripts for both FastGS-backed and Taming-3DGS-backed Laplacian-GS.
 
-## 2. Quick Start
+## 🛠️ Quick Start
 
 Create the conda environment. The local CUDA extensions are installed from `environment.yml`.
 
@@ -51,7 +55,7 @@ ln -s /path/to/your/dataset ./dataset
 
 The default image loading behavior follows the 3DGS convention: images wider than 1.6K pixels are resized down automatically unless you override `-r`.
 
-## 3. Training & Evaluation
+## 🚀 Training & Evaluation
 
 Run the FastGS-backed version:
 
@@ -75,7 +79,7 @@ Both scripts train `train_lap.py` with:
 
 The FastGS script uses `--backbone fastgs`; the Taming-3DGS script uses `--backbone taming`.
 
-## 4. Output Layout:
+## 🌟 Output Layout:
 
 - FastGS training outputs: `output_mipnerf360_1k_fastgs/<scene>_big/`
 - Taming-3DGS training outputs: `output_mipnerf360_1k_taming/<scene>/`

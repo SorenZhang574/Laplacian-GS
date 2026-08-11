@@ -212,6 +212,15 @@
       margin-top: 22px;
     }
 
+    .result-figure {
+      margin-top: 22px;
+    }
+
+    .figure-label {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
     .results-table {
       width: 100%;
       border-collapse: collapse;
@@ -312,14 +321,12 @@
 
     <figure>
       <img src="assets/teaser_Laplacian-GS.jpg" alt="Laplacian-GS teaser">
-      <figcaption>Laplacian-GS trains frequency-staged Gaussian fields and reconstructs the final image with Laplacian-style image-domain composition.</figcaption>
+      <figcaption><span class="figure-label">Figure 1:</span> Laplacian-GS trains frequency-staged Gaussian fields and reconstructs the final image with Laplacian-style image-domain composition.</figcaption>
     </figure>
 
     <section id="abstract">
       <h2>Abstract</h2>
-      <p>A key bottleneck in 3D Gaussian Splatting training is the continual growth of Gaussian primitives, which increases optimization cost and slows convergence, especially at high resolutions.</p>
-      <p>We propose <strong>Laplacian Frequency Hierarchies</strong>, a simple yet efficient 3DGS scheme that combines Laplacian image decomposition with coarse-to-fine, frequency-staged training. After fitting lower-frequency structure, we archive the corresponding Gaussian field so that subsequent fields can optimize higher-frequency residuals without carrying the full primitive burden, and we compose the rendered components in the image domain via a Laplacian-style reconstruction at inference time.</p>
-      <p>This design reduces the number of active Gaussians during training, lowering optimization overhead and accelerating training. The proposed scheme is plug-and-play and orthogonal to prior 3DGS accelerations: it can be directly combined with strong backbones such as Taming-3DGS and FastGS to improve training speed with competitive reconstruction quality.</p>
+      <p>A key bottleneck in 3D Gaussian Splatting training is the continual growth of Gaussian primitives, which increases optimization cost and slows convergence, especially at high resolutions. We propose <strong>Laplacian Frequency Hierarchies</strong>, a simple yet efficient 3DGS scheme that combines Laplacian image decomposition with coarse-to-fine, frequency-staged training. After fitting lower-frequency structure, we archive the corresponding Gaussian field so that subsequent fields can optimize higher-frequency residuals without carrying the full primitive burden, and we compose the rendered components in the image domain via a Laplacian-style reconstruction at inference time. This design reduces the number of active Gaussians during training, lowering optimization overhead and accelerating training. The proposed scheme is plug-and-play and orthogonal to prior 3DGS accelerations: it can be directly combined with strong backbones such as Taming-3DGS and FastGS to improve training speed with competitive reconstruction quality.</p>
     </section>
 
     <section id="method">
@@ -327,7 +334,7 @@
       <p class="lead">Laplacian-GS decomposes supervision into frequency bands and optimizes a separate Gaussian field for each stage.</p>
       <figure class="wide-figure">
         <img src="assets/method.png" alt="Overview of the Laplacian-GS method">
-        <figcaption><strong>Overview of our method.</strong> We decompose each training image into a resolution pyramid and the corresponding Laplacian residual pyramid. During training, a sequence of Gaussian fields $\mathcal{G}^{L-1}, \mathcal{G}^{L-2}, \ldots, \mathcal{G}^{0}$ is optimized in a coarse-to-fine manner, with each field learning a specific frequency component. At inference time, the fields are rendered separately and their outputs are composed via Laplacian reconstruction to produce the full-resolution result.</figcaption>
+        <figcaption><span class="figure-label">Figure 2:</span> <strong>Overview of our method.</strong> We decompose each training image into a resolution pyramid and the corresponding Laplacian residual pyramid. During training, a sequence of Gaussian fields $\mathcal{G}^{L-1}, \mathcal{G}^{L-2}, \ldots, \mathcal{G}^{0}$ is optimized in a coarse-to-fine manner, with each field learning a specific frequency component. At inference time, the fields are rendered separately and their outputs are composed via Laplacian reconstruction to produce the full-resolution result.</figcaption>
       </figure>
     </section>
 
@@ -342,6 +349,18 @@
     <section id="results">
       <h2>Results</h2>
       <p>The released scripts reproduce the Mip-NeRF 360 1K setting with FastGS and Taming-3DGS backbones.</p>
+      <figure class="result-figure">
+        <img src="assets/1K_results.jpg" alt="Laplacian-GS 1K qualitative results">
+        <figcaption><span class="figure-label">Figure 3:</span> Qualitative results of the 1K setting.</figcaption>
+      </figure>
+      <figure class="result-figure">
+        <img src="assets/2K_results.jpg" alt="Laplacian-GS 2K qualitative results">
+        <figcaption><span class="figure-label">Figure 4:</span> Qualitative results of the 2K setting.</figcaption>
+      </figure>
+      <figure class="result-figure">
+        <img src="assets/4K_results.jpg" alt="Laplacian-GS 4K qualitative results">
+        <figcaption><span class="figure-label">Figure 5:</span> Qualitative results of the 4K setting.</figcaption>
+      </figure>
       <table class="results-table">
         <thead>
           <tr>

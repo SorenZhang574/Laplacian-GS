@@ -36,6 +36,7 @@ logs/
 .vscode/
 .idea/
 .DS_Store
+*:Zone.Identifier
 
 # Temporary files
 tmp/
