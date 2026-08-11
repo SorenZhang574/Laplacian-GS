@@ -1,0 +1,30 @@
+name: laplacian-gs
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10.16
+  - pip=25.1
+  - pytorch=2.1.0
+  - torchaudio=2.1.0
+  - torchvision=0.16.0
+  - pytorch-cuda=12.1
+  - numpy=1.26.4
+  - pillow=11.0.0
+  - plyfile
+  - matplotlib=3.10.3
+  - tensorboard
+  - ninja
+  - tqdm
+  - websockets
+  - pip:
+    - opencv-python==4.11.0.86
+    - submodules/diff-gaussian-rasterization
+    - submodules/diff-gaussian-rasterization_pn
+    - submodules/diff-gaussian-rasterization_fastgs
+    - submodules/diff-gaussian-rasterization_fastgs_pn
+    - submodules/simple-knn
+    - submodules/fused-ssim
+    - submodules/lanczos-resampling

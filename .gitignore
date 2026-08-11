@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.pytest_cache/
+
+# Build artifacts
+build/
+dist/
+*.o
+*.cu.o
+
+# Local CUDA extension builds
+submodules/**/build/
+submodules/**/*.egg-info/
+submodules/**/_C*.so
+
+# Data and experiment outputs
+dataset/
+datasets/
+output/
+output*/
+results/
+results*/
+logs/
+*.log
+
+# Large model/checkpoint artifacts
+*.pth
+*.pt
+*.ckpt
+*.ply
+
+# Local/editor files
+.vscode/
+.idea/
+.DS_Store
+
+# Temporary files
+tmp/
+temp/
