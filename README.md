@@ -5,7 +5,7 @@
 Laplacian-GS is a plug-and-play acceleration scheme for 3D Gaussian Splatting training.
 It combines Laplacian image decomposition with coarse-to-fine, frequency-staged optimization.
 
-![Laplacian-GS teaser](assets/teaser_Laplacian-GS.jpg)
+![Laplacian-GS teaser](docs/assets/teaser_Laplacian-GS.jpg)
 
 ## 1. About Laplacian-GS
 
