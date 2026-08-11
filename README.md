@@ -69,14 +69,6 @@ Run the Taming-3DGS-backed version:
 bash run_mipnerf360_1k_taming.sh
 ```
 
-Both scripts train `train_lap.py` with:
-
-- `--lap_n_levels 2`
-- `--decomposition_func pn`
-- `--blur_up`
-- `--inherit_state only_xyz`
-- `--iter_plan 10000_20000`
-
 The FastGS script uses `--backbone fastgs`; the Taming-3DGS script uses `--backbone taming`.
 
 ## 🌟 Output Layout:
