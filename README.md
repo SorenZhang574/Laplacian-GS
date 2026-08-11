@@ -1,5 +1,7 @@
 # Laplacian-GS: Laplacian Frequency Hierarchies for Efficient 3D Gaussian Splatting Training
 
+[Project Page](https://SorenZhang574.github.io/Laplacian-GS/)
+
 Laplacian-GS is a plug-and-play acceleration scheme for 3D Gaussian Splatting training.
 It combines Laplacian image decomposition with coarse-to-fine, frequency-staged optimization.
 

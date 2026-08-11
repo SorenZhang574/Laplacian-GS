@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laplacian-GS</title>
+  <style>
+    :root {
+      --ink: #1f2933;
+      --muted: #5d6875;
+      --line: #d9dee5;
+      --accent: #0f766e;
+      --soft: #eef7f6;
+      --paper: #fbfcfd;
+      --code: #f3f5f7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.6;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: rgba(251, 252, 253, 0.94);
+      backdrop-filter: blur(10px);
+    }
+
+    nav .inner {
+      width: min(1080px, calc(100% - 32px));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 58px;
+      gap: 18px;
+    }
+
+    .brand {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      font-size: 14px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      width: min(980px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      padding: 72px 0 34px;
+    }
+
+    h1 {
+      margin: 0 auto 14px;
+      max-width: 920px;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 0 auto 24px;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 19px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 8px 16px;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+    }
+
+    .button.secondary {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    figure {
+      margin: 24px 0;
+    }
+
+    img,
+    video {
+      display: block;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: white;
+    }
+
+    figcaption {
+      margin-top: 10px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    section {
+      padding: 34px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0 0 14px;
+    }
+
+    .lead {
+      font-size: 18px;
+      color: var(--muted);
+    }
+
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .method-step {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      padding: 16px;
+    }
+
+    .method-step h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+    }
+
+    .method-step p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+    }
+
+    .results-table th,
+    .results-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .results-table th {
+      background: var(--soft);
+      font-weight: 700;
+    }
+
+    .results-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    code {
+      padding: 2px 5px;
+      border-radius: 4px;
+      background: var(--code);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.94em;
+    }
+
+    footer {
+      width: min(980px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 30px 0 48px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    @media (max-width: 760px) {
+      nav .inner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 0;
+      }
+
+      .links {
+        justify-content: flex-start;
+      }
+
+      header {
+        padding-top: 46px;
+      }
+
+      .method-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="inner">
+      <div class="brand">Laplacian-GS</div>
+      <div class="links">
+        <a href="#home">Home</a>
+        <a href="#abstract">Abstract</a>
+        <a href="#method">Method</a>
+        <a href="#demo">Demo</a>
+        <a href="#results">Results</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <header id="home">
+      <h1>Laplacian Frequency Hierarchies for Efficient 3D Gaussian Splatting Training</h1>
+      <p class="subtitle">A plug-and-play frequency-staged training scheme for accelerating 3DGS backbones such as FastGS and Taming-3DGS.</p>
+      <div class="actions">
+        <a class="button" href="https://github.com/SorenZhang574/Laplacian-GS">Code</a>
+        <a class="button secondary" href="#demo">Watch Demo</a>
+      </div>
+    </header>
+
+    <figure>
+      <img src="../assets/teaser_Laplacian-GS.jpg" alt="Laplacian-GS teaser">
+      <figcaption>Laplacian-GS trains frequency-staged Gaussian fields and reconstructs the final image with Laplacian-style image-domain composition.</figcaption>
+    </figure>
+
+    <section id="abstract">
+      <h2>Abstract</h2>
+      <p>A key bottleneck in 3D Gaussian Splatting training is the continual growth of Gaussian primitives, which increases optimization cost and slows convergence, especially at high resolutions.</p>
+      <p>We propose <strong>Laplacian Frequency Hierarchies</strong>, a simple yet efficient 3DGS scheme that combines Laplacian image decomposition with coarse-to-fine, frequency-staged training. After fitting lower-frequency structure, we archive the corresponding Gaussian field so that subsequent fields can optimize higher-frequency residuals without carrying the full primitive burden, and we compose the rendered components in the image domain via a Laplacian-style reconstruction at inference time.</p>
+      <p>This design reduces the number of active Gaussians during training, lowering optimization overhead and accelerating training. The proposed scheme is plug-and-play and orthogonal to prior 3DGS accelerations: it can be directly combined with strong backbones such as Taming-3DGS and FastGS to improve training speed with competitive reconstruction quality.</p>
+    </section>
+
+    <section id="method">
+      <h2>Method</h2>
+      <p class="lead">Laplacian-GS decomposes supervision into frequency bands and optimizes a separate Gaussian field for each stage.</p>
+      <div class="method-grid">
+        <div class="method-step">
+          <h3>1. Decompose</h3>
+          <p>Build a Laplacian image hierarchy from each training view, separating low-frequency structure from high-frequency residuals.</p>
+        </div>
+        <div class="method-step">
+          <h3>2. Train & Archive</h3>
+          <p>Fit a Gaussian field for the current frequency stage, archive it, then initialize the next stage without carrying all previous primitives.</p>
+        </div>
+        <div class="method-step">
+          <h3>3. Reconstruct</h3>
+          <p>Render archived stage fields and compose them in image space to recover the final full-frequency prediction.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="demo">
+      <h2>Demo</h2>
+      <video controls playsinline preload="metadata">
+        <source src="../assets/DEMO.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </section>
+
+    <section id="results">
+      <h2>Results</h2>
+      <p>The released scripts reproduce the Mip-NeRF 360 1K setting with FastGS and Taming-3DGS backbones.</p>
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>Backbone</th>
+            <th>Script</th>
+            <th>Setting</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>FastGS</td>
+            <td><code>run_mipnerf360_1k_fastgs.sh</code></td>
+            <td>Mip-NeRF 360, 1K/1.6K resize convention</td>
+          </tr>
+          <tr>
+            <td>Taming-3DGS</td>
+            <td><code>run_mipnerf360_1k_taming.sh</code></td>
+            <td>Mip-NeRF 360, 1K/1.6K resize convention</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    Project page for Laplacian-GS. Replace the GitHub link with the final repository URL after publishing.
+  </footer>
+</body>
+</html>
