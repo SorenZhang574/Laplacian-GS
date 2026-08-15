@@ -1,4 +1,4 @@
-# Laplacian-GS: Laplacian Frequency Hierarchies for Efficient 3D Gaussian Splatting Training
+# Laplacian-GS: Laplacian Frequency Hierarchies for Efficient 3D Gaussian Splatting Training (under review)
 
 <div align="center">
 
